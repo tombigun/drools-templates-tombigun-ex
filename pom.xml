@@ -9,55 +9,50 @@
     <version>6.5.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
+    <properties>
+        <drools.version>6.5.0.Final</drools.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.drools</groupId>
             <artifactId>drools-templates</artifactId>
-            <version>6.5.0.Final</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.drools</groupId>
-                    <artifactId>drools-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.drools</groupId>
-                    <artifactId>drools-compiler</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.kie</groupId>
-                    <artifactId>kie-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.kie</groupId>
-                    <artifactId>kie-internal</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mvel</groupId>
-                    <artifactId>mvel2</artifactId>
-                </exclusion>
-            </exclusions>
+            <version>${drools.version}</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>provided</scope>
+            <groupId>org.drools</groupId>
+            <artifactId>drools-compiler</artifactId>
+            <version>${drools.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.kie</groupId>
+            <artifactId>kie-internal</artifactId>
+            <version>${drools.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mvel</groupId>
+            <artifactId>mvel2</artifactId>
+            <version>2.2.8.Final</version>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
                 <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptors>
+                        <descriptor>src/main/assembly/assembly.xml</descriptor>
+                    </descriptors>
                 </configuration>
                 <executions>
                     <execution>
-                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                        <phase>package</phase> <!-- 指定在打包节点执行jar包合并操作 -->
+                        <id>make-assembly</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>single</goal>
                         </goals>
